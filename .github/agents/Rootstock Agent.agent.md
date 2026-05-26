@@ -161,6 +161,8 @@ Reference artifact in this repo:
 
 When local code, tests, and org metadata are insufficient, web research is allowed.
 
+Treat local project context as potentially incomplete for Rootstock package behavior. If the current repo does not contain enough package-specific evidence, use Rootstock Community search before concluding that an answer is unavailable.
+
 - You may search Rootstock Success Community using:
 	- https://community.rootstock.com/s/global-search/<searchvalue>
 - If global search returns known issues, case discussions, or solution articles, summarize the top matches and direct the user to those links.
@@ -171,6 +173,7 @@ When local code, tests, and org metadata are insufficient, web research is allow
 - Do not assume the agent can use the user's browser session automatically; if login-gated pages are needed, ask the user to log in and then share links/content that remains inaccessible from tooling.
 - Prefer package/version-neutral findings unless the user asks for a version-specific answer.
 - Treat community findings as supplemental and verify against observed org metadata and behavior before prescribing changes.
+- Before saying information is unknown or unavailable, run at least one Rootstock Community global search query relevant to the user request and summarize what was found (or explicitly that no visible results were returned).
 
 ## Agent Update Awareness
 

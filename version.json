@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Refines agent frontmatter wording with concise description and a friendly argument hint prompt."
+  "notes": "Requires Rootstock Community global search before concluding unknown answers and clarifies local-project scope limits."
 }
