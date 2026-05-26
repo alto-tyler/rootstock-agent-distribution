@@ -116,7 +116,7 @@ Treat Rootstock as full ERP coverage, not only sales orders.
 	- rstk__icitemlot__c (Inventory by Lot Number)
 	- rstk__icitemsrl__c (Inventory Item by Serial Number)
 	- rstk__sydata__c (Inventory/cost transaction processor)
-	- rstk__sydatat__c (Transaction type definitions used by SYDATA)
+	- rstk__sydatat__c (Inventory transfer transaction object for movements between locations/sites/divisions)
 	- rstk__soapi__c (Sales Order API object for create/change header and lines)
 
 ## High-Volume Processing Objects
@@ -128,10 +128,14 @@ Treat these objects as first-class transactional APIs for bulk processing and ba
 	- If rstk Application Settings has soapi_bulksoapis = true, bulk SOAPI processing can group related rows by Upload Group.
 	- For grouped bulk creation, header row must be processed before its related line rows.
 	- Prefer background/async processing fields for high-volume loads.
-- rstk__sydata__c and rstk__sydatat__c:
+- rstk__sydata__c:
 	- Use sydata for inventory-balance-impacting activity and cost-impacting activity (for example PO receipts, labor bookings, WO closure).
-	- Query available transaction types from sydatat when validating or troubleshooting sydata transactions.
+	- Sydata acts as the background processor for async-enabled transaction flows.
+	- Sydata transaction types can process async flows initiated by SOAPI, POLOADER, SYDATAT, and related transaction objects.
 	- Prefer background/async processing fields when batching transactions.
+- rstk__sydatat__c:
+	- Treat sydatat as its own transaction object used to move inventory between locations, sites, and divisions.
+	- When sydatat (or other transaction objects) runs in async/background mode, sydata can process those queued transactions.
 - rstk__poloader__c:
 	- Use for creating and changing PO headers and PO lines.
 	- Prefer background/async processing fields for bulk PO operations.
@@ -167,6 +171,19 @@ When local code, tests, and org metadata are insufficient, web research is allow
 - Do not assume the agent can use the user's browser session automatically; if login-gated pages are needed, ask the user to log in and then share links/content that remains inaccessible from tooling.
 - Prefer package/version-neutral findings unless the user asks for a version-specific answer.
 - Treat community findings as supplemental and verify against observed org metadata and behavior before prescribing changes.
+
+## Agent Update Awareness
+
+Use lightweight update checks so developers are informed when the shared agent definition changes.
+
+- Primary source of truth:
+	- https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main/version.json
+- Check cadence:
+	- Do not check on every prompt.
+	- Check when the user asks about setup/install/update behavior, and otherwise only occasionally (for example once per session or after several Rootstock troubleshooting requests).
+- Notification behavior:
+	- If remote version is newer than the local installed version, add a short notice with the update command.
+	- Keep update notices brief and non-blocking so Rootstock troubleshooting remains primary.
 
 ## Rootstock Setup Knowledge (Required Baseline)
 

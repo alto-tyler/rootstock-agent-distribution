@@ -4,7 +4,7 @@ Use this model to push Rootstock Agent updates to all developers from one centra
 
 ## Recommended architecture
 
-1. Create a dedicated distribution repository (private is fine).
+1. Create a dedicated distribution repository (public recommended for zero-token installs).
 2. Keep this structure in that repo:
    - .github/agents/Rootstock Agent.agent.md
    - docs/rootstock-field-help-sample.md
@@ -26,7 +26,7 @@ Use the installer script in this repo:
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
-If the distribution repo is private, set a token first (repo read scope):
+If you use a private fork, set a token first (repo read scope):
 
 ```powershell
 $env:GITHUB_TOKEN = "<token-with-repo-read>"
@@ -44,7 +44,7 @@ $env:GITHUB_TOKEN = "<token-with-repo-read>"
 ./scripts/agent/check-rootstock-agent-update.ps1
 ```
 
-For private repos, the same GITHUB_TOKEN environment variable is used by this check script.
+For private forks, the same GITHUB_TOKEN environment variable is used by this check script.
 
 The script compares the local installed manifest in the user prompts folder against the remote version.json in the distribution repository.
 

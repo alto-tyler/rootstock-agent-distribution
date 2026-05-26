@@ -50,7 +50,7 @@ For push-style team updates, use a dedicated distribution repository and user-le
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
-If the distribution repo is private, set a token first:
+If you use a private fork, set a token first:
 
 ```powershell
 $env:GITHUB_TOKEN = "<token-with-repo-read>"
@@ -64,7 +64,7 @@ To check whether an update is available before reinstalling:
 ./scripts/agent/check-rootstock-agent-update.ps1
 ```
 
-The update-check script also uses GITHUB_TOKEN for private repositories.
+The update-check script also uses GITHUB_TOKEN for private forks.
 
 Reference: docs/rootstock-agent-deployment.md
 
