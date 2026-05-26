@@ -1,0 +1,10 @@
+Value,Label,Active,Default
+"Add Header","Add Header","true","false"
+"Add Both","Add Both","true","false"
+"Add Line","Add Line","true","false"
+"Change Header","Change Header","true","false"
+"Change Both","Change Both","true","false"
+"Change Line","Change Line","true","false"
+"Delete Line","Delete Line","true","false"
+"Delete Both","Delete Both","true","false"
+"Delete Header","Delete Header","true","false"

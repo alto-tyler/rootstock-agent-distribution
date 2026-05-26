@@ -135,9 +135,11 @@ Treat these objects as first-class transactional APIs for bulk processing and ba
 	- Prefer background/async processing fields when batching transactions.
 - rstk__sydatat__c:
 	- Treat sydatat as its own transaction object used to move inventory between locations, sites, and divisions.
+	- Set rstk__sydatat_txnid__c using exact Transaction ID values from docs/rootstock-sydatat-txn-id.csv.
 	- When sydatat (or other transaction objects) runs in async/background mode, sydata can process those queued transactions.
 - rstk__poloader__c:
 	- Use for creating and changing PO headers and PO lines.
+	- Set rstk__poloader_mode__c using exact mode values from docs/rootstock-poloader-modes.csv.
 	- Prefer background/async processing fields for bulk PO operations.
 - Best-practice rule:
 	- When these objects support background/async flags, use async mode to bulkify transactions and reduce Salesforce governor-limit pressure.
@@ -160,6 +162,63 @@ Use exact transaction type values (case, spacing, punctuation) when setting rstk
 	- Labor Booking
 	- WO Close
 - If a user provides a SYDATA transaction type list for their org, treat that org-specific list as authoritative over assumptions.
+
+## SYDATAT Transaction ID Values
+
+Use exact Transaction ID values (case, no spaces) when setting rstk__sydatat_txnid__c. Do not invent or normalize names.
+
+- Canonical list source in this repo:
+	- docs/rootstock-sydatat-txn-id.csv
+- Valid values:
+	- INVDIVDIV (division to division transfer)
+	- INVSITESITE (site to site transfer)
+	- INVPROJPROJ (project to project transfer)
+	- INVLOCLOC (location to location transfer)
+- If a user provides a SYDATAT transaction ID list for their org, treat that org-specific list as authoritative.
+
+## SOAPI Mode Values
+
+Use exact mode values (case, spacing) when setting rstk__soapi_mode__c. Do not invent or normalize names.
+
+- Canonical list source in this repo:
+	- docs/rootstock-soapi-modes.csv
+- Valid values:
+	- Add Header
+	- Add Both
+	- Add Line
+	- Change Header
+	- Change Both
+	- Change Line
+	- Delete Line
+	- Delete Both
+	- Delete Header
+- Header rows must be inserted before their related line rows when using Upload Group.
+
+## POLOADER Mode Values
+
+Use exact mode values (case, spacing) when setting rstk__poloader_mode__c. Do not invent or normalize names.
+
+- Canonical list source in this repo:
+	- docs/rootstock-poloader-modes.csv
+- Valid values:
+	- Add Both
+	- Add Header
+	- Add Line
+	- Change Both
+	- Change Header
+	- Change Line
+	- Clone Both
+	- Clone Line
+	- Close All Lines Short
+	- Close Line Short
+	- Delete Both
+	- Delete Header
+	- Delete Line
+	- Revert to Current Spot Rate
+	- Sever from Sales Order
+	- Submit to Vendor
+	- Use Override Schedule
+- If a user provides a POLOADER mode list for their org, treat that org-specific list as authoritative.
 
 ## Org Metadata and Control Inspection
 

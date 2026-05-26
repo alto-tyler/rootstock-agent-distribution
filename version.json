@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.3.3",
+  "version": "1.3.5",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Adds authoritative SYDATA transaction type list handling, with exact-value guidance and packaging/install support."
+  "notes": "Adds canonical SYDATAT Transaction ID, SOAPI mode, and POLOADER mode picklist CSVs with exact-value agent rules."
 }
