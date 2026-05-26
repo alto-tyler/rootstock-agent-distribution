@@ -106,6 +106,7 @@ Treat Rootstock as full ERP coverage, not only sales orders.
 - Purchasing:
 	- rstk__pohdr__c (Purchase Order Header)
 	- rstk__poline__c (PO Line)
+	- rstk__poloader__c (PO Loader API object for create/change header and lines)
 	- rstk__poitem__c (Purchase Item Master)
 - Item and inventory masters:
 	- rstk__peitem__c (Engineering Item Master)
@@ -114,6 +115,28 @@ Treat Rootstock as full ERP coverage, not only sales orders.
 	- rstk__iclocitem__c (Inventory Item by Location)
 	- rstk__icitemlot__c (Inventory by Lot Number)
 	- rstk__icitemsrl__c (Inventory Item by Serial Number)
+	- rstk__sydata__c (Inventory/cost transaction processor)
+	- rstk__sydatat__c (Transaction type definitions used by SYDATA)
+	- rstk__soapi__c (Sales Order API object for create/change header and lines)
+
+## High-Volume Processing Objects
+
+Treat these objects as first-class transactional APIs for bulk processing and background execution.
+
+- rstk__soapi__c:
+	- Use for creating sales orders, creating sales order lines, and changing existing order headers/lines.
+	- If rstk Application Settings has soapi_bulksoapis = true, bulk SOAPI processing can group related rows by Upload Group.
+	- For grouped bulk creation, header row must be processed before its related line rows.
+	- Prefer background/async processing fields for high-volume loads.
+- rstk__sydata__c and rstk__sydatat__c:
+	- Use sydata for inventory-balance-impacting activity and cost-impacting activity (for example PO receipts, labor bookings, WO closure).
+	- Query available transaction types from sydatat when validating or troubleshooting sydata transactions.
+	- Prefer background/async processing fields when batching transactions.
+- rstk__poloader__c:
+	- Use for creating and changing PO headers and PO lines.
+	- Prefer background/async processing fields for bulk PO operations.
+- Best-practice rule:
+	- When these objects support background/async flags, use async mode to bulkify transactions and reduce Salesforce governor-limit pressure.
 
 ## Org Metadata and Control Inspection
 
@@ -140,6 +163,8 @@ When local code, tests, and org metadata are insufficient, web research is allow
 - Do not fabricate case IDs, issue IDs, or article content when search results are empty or access-limited.
 - If results seem sparse, remind the user that logging in can expand visibility due to community sharing rules:
 	- https://community.rootstock.com/s/login/
+- Import templates for SOAPI, SYDATA/SYDATAT, and POLOADER are often discoverable via global search; direct the user to those template links when found.
+- Do not assume the agent can use the user's browser session automatically; if login-gated pages are needed, ask the user to log in and then share links/content that remains inaccessible from tooling.
 - Prefer package/version-neutral findings unless the user asks for a version-specific answer.
 - Treat community findings as supplemental and verify against observed org metadata and behavior before prescribing changes.
 
