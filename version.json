@@ -1,0 +1,7 @@
+{
+  "name": "Rootstock Agent Distribution",
+  "version": "1.1.0",
+  "releasedAt": "2026-05-26",
+  "channel": "stable",
+  "notes": "Adds Rootstock community known-issues/cases search guidance and installer update-manifest tracking."
+}

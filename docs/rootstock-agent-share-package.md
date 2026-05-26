@@ -8,6 +8,8 @@ This package lets another developer use the same Rootstock Agent behavior and fi
 - docs/rootstock-field-help-sample.md
 - docs/rootstock-agent-certification-suite.md (optional but recommended)
 - docs/rootstock-agent-test-log.md (optional but recommended)
+- version.json
+- scripts/agent/check-rootstock-agent-update.ps1
 
 ## Export from this repo
 
@@ -40,13 +42,29 @@ For push-style team updates, use a dedicated distribution repository and user-le
    - docs/rootstock-field-help-sample.md
    - docs/rootstock-agent-certification-suite.md
    - docs/rootstock-agent-test-log.md
+   - version.json
+   - scripts/agent/check-rootstock-agent-update.ps1
 2. Ask developers to run:
 
 ```powershell
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
+If the distribution repo is private, set a token first:
+
+```powershell
+$env:GITHUB_TOKEN = "<token-with-repo-read>"
+```
+
 This installs into user prompts so the agent is available across all workspaces.
+
+To check whether an update is available before reinstalling:
+
+```powershell
+./scripts/agent/check-rootstock-agent-update.ps1
+```
+
+The update-check script also uses GITHUB_TOKEN for private repositories.
 
 Reference: docs/rootstock-agent-deployment.md
 

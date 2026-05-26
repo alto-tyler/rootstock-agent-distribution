@@ -136,6 +136,10 @@ When local code, tests, and org metadata are insufficient, web research is allow
 
 - You may search Rootstock Success Community using:
 	- https://community.rootstock.com/s/global-search/<searchvalue>
+- If global search returns known issues, case discussions, or solution articles, summarize the top matches and direct the user to those links.
+- Do not fabricate case IDs, issue IDs, or article content when search results are empty or access-limited.
+- If results seem sparse, remind the user that logging in can expand visibility due to community sharing rules:
+	- https://community.rootstock.com/s/login/
 - Prefer package/version-neutral findings unless the user asks for a version-specific answer.
 - Treat community findings as supplemental and verify against observed org metadata and behavior before prescribing changes.
 

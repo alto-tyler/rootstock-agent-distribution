@@ -10,6 +10,8 @@ Use this model to push Rootstock Agent updates to all developers from one centra
    - docs/rootstock-field-help-sample.md
    - docs/rootstock-agent-certification-suite.md
    - docs/rootstock-agent-test-log.md
+   - version.json
+   - scripts/agent/check-rootstock-agent-update.ps1
 3. Developers install/update from that repository into their user-level prompts folder.
 
 ## Developer install and update
@@ -24,11 +26,27 @@ Use the installer script in this repo:
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
+If the distribution repo is private, set a token first (repo read scope):
+
+```powershell
+$env:GITHUB_TOKEN = "<token-with-repo-read>"
+```
+
 ### Local install (from extracted package)
 
 ```powershell
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode local -LocalPackagePath "C:\path\to\rootstock-agent-package"
 ```
+
+### Check for updates
+
+```powershell
+./scripts/agent/check-rootstock-agent-update.ps1
+```
+
+For private repos, the same GITHUB_TOKEN environment variable is used by this check script.
+
+The script compares the local installed manifest in the user prompts folder against the remote version.json in the distribution repository.
 
 ## Team rollout workflow
 

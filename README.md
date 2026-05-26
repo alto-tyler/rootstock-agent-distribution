@@ -18,3 +18,15 @@ Central distribution repository for the VS Code Rootstock Agent and supporting d
 ```powershell
 ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
+
+If this repo is private, set a token first:
+
+```powershell
+$env:GITHUB_TOKEN = "<token-with-repo-read>"
+```
+
+## Check for updates
+
+```powershell
+./scripts/agent/check-rootstock-agent-update.ps1
+```
