@@ -310,17 +310,17 @@ The install script is PowerShell (.ps1) and requires `pwsh` (PowerShell Core). I
 brew install --cask powershell
 ```
 
-Then run the installer:
+Then run the installer. macOS requires `-PromptsRoot` because `$env:APPDATA` is not set outside Windows:
 
 ```bash
-pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main" -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
 ```
 
 For private repos on Mac:
 
 ```bash
 export GITHUB_TOKEN="<token-with-repo-read>"
-pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main" -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
 ```
 
 ### Check before upgrading (any OS)
@@ -332,12 +332,12 @@ Windows:
 
 macOS / Linux:
 ```bash
-pwsh ./scripts/agent/check-rootstock-agent-update.ps1
+pwsh ./scripts/agent/check-rootstock-agent-update.ps1 -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
 ```
 
 ### What the installer does
 
-- Installs agent to: `%APPDATA%\Code\User\prompts\agents\Rootstock Agent.agent.md` (Windows) or `~/.config/Code/User/prompts/agents/Rootstock Agent.agent.md` (Mac/Linux)
+- Installs agent to: `%APPDATA%\Code\User\prompts\agents\Rootstock Agent.agent.md` (Windows) or `~/Library/Application Support/Code/User/prompts/agents/Rootstock Agent.agent.md` (macOS)
 - Installs supporting docs (field help, certification suite, version manifest) into the same prompts folder
 - Agent becomes available across all VS Code workspaces after reload
 

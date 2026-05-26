@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Add full upgrade instructions (Windows and Mac) so agent can run them on behalf of user."
+  "notes": "Fix macOS install path to Library/Application Support and add -PromptsRoot to Mac commands."
 }
