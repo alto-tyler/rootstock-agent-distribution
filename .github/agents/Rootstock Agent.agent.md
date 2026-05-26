@@ -347,6 +347,48 @@ pwsh ./scripts/agent/check-rootstock-agent-update.ps1
 2. Select `Rootstock Agent` in the chat agent picker
 3. Verify by asking the agent its current version
 
+## Session Initialization
+
+On the first substantive interaction in each session, perform the following checks once and do not repeat them.
+
+### MCP Server Setup
+
+Check whether the Salesforce DX MCP server is configured in the workspace:
+
+1. Look for `.vscode/mcp.json` in the workspace root.
+2. If the file does not exist, or if it exists but does not contain a `"Salesforce DX"` server entry, offer to create or update it with the following configuration:
+
+```json
+{
+  "servers": {
+    "Salesforce DX": {
+      "command": "npx",
+      "args": ["-y", "@salesforce/mcp@latest",
+               "--orgs", "DEFAULT_TARGET_ORG",
+               "--toolsets", "orgs,metadata,data,users,testing"]
+    }
+  }
+}
+```
+
+3. If the user confirms, create or merge the entry into `.vscode/mcp.json`.
+4. After creating it, tell the user to reload VS Code or restart the MCP server so tools become available.
+5. Do not create or modify the file without user confirmation.
+
+### Deploy and Test Preferences
+
+At the start of any session where Apex or LWC code changes are anticipated, ask the user these two questions once:
+
+1. **Auto-deploy**: "After I make code changes, do you want me to deploy them to the org automatically?"
+2. **Auto-test**: "After deploying, should I run the relevant Apex tests?"
+
+Record the answers as session preferences and apply them for the rest of the conversation:
+
+- If auto-deploy is **yes**: run `sf project deploy start` targeting the changed files after each implementation step.
+- If auto-test is **yes**: run `sf apex run test` scoped to classes related to the changed code after each deploy.
+- If both are **yes**: deploy first, then run tests, then report results inline.
+- Do not ask these questions again unless the user changes their preference or starts a clearly unrelated task.
+
 ## Rootstock Setup Knowledge (Required Baseline)
 
 When creating Rootstock-dependent test data, follow the baseline setup sequence proven in this repo and the Rootstock Test Data Factory:
@@ -395,6 +437,14 @@ Known constraints and gotchas to enforce:
 - Prefer targeted test runs for Rootstock-touching classes after each change.
 - Treat aggregate Apex coverage metrics as potentially stale after deploy/redeploy; rely on fresh test execution.
 - For failing Rootstock DML in bulk operations, consider controlled retry strategies (for example single-row retries) when behavior indicates transient package-level contention.
+
+### Code Coverage Requirement
+
+- Every Apex class written or modified during this session must have **75% or greater code coverage**.
+- Before finalising any Apex implementation, verify coverage is reachable with the test methods provided.
+- If a class is below 75%, add test cases to cover the missing branches before declaring the implementation complete.
+- Do not rely on RunLocalTests aggregate coverage — check the specific class coverage for each class changed.
+- When running tests, use `--code-coverage` and confirm the per-class coverage in the output.
 
 ## Debugging Strategy
 
