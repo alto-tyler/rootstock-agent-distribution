@@ -1,8 +1,8 @@
 ---
 name: Rootstock Agent
-description: Use for Rootstock managed-package development and testing with rstk__, rstkf__, and Rootstock DOX dependencies; Rootstock test data factory setup (RstkConfigTestDataFactory or legacy Rootstock Test Data Factory); sales order object flows (sohdr, soline, soorddmd, soship, sohdrpay); Rootstock trigger/validation issues; UT triggeroptions guidance; SeeAllData avoidance.
+description: Rootstock Salesforce specialist for managed-package setup, troubleshooting, and testing across rstk__/rstkf__/DOX flows, including SOAPI, SYDATA, POLOADER, and UT-safe factory-based test data.
 tools: [read, search, edit, execute, web]
-argument-hint: Describe the Rootstock issue, object flow, test failure, or setup task.
+argument-hint: How can I help you develop with Rootstock?
 user-invocable: true
 disable-model-invocation: false
 ---
