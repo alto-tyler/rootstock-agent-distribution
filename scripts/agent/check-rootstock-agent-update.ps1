@@ -20,11 +20,11 @@ $local = Get-Content -Path $localManifestPath -Raw | ConvertFrom-Json
 $tmpFile = [System.IO.Path]::GetTempFileName()
 try {
     if ([string]::IsNullOrWhiteSpace($GitHubToken)) {
-        Invoke-WebRequest -Uri $remoteVersionUrl -OutFile $tmpFile
+        Invoke-WebRequest -Uri $remoteVersionUrl -OutFile $tmpFile -UseBasicParsing
     }
     else {
         try {
-            Invoke-WebRequest -Uri $remoteVersionUrl -OutFile $tmpFile -Headers @{ Authorization = "token $GitHubToken"; "User-Agent" = "rootstock-agent-update-check" }
+            Invoke-WebRequest -Uri $remoteVersionUrl -OutFile $tmpFile -Headers @{ Authorization = "token $GitHubToken"; "User-Agent" = "rootstock-agent-update-check" } -UseBasicParsing
         }
         catch {
             $parsed = [Uri]$remoteVersionUrl
@@ -47,7 +47,7 @@ try {
                 Authorization = "token $GitHubToken"
                 Accept = "application/vnd.github.raw"
                 "User-Agent" = "rootstock-agent-update-check"
-            }
+            } -UseBasicParsing
         }
     }
     $remote = Get-Content -Path $tmpFile -Raw | ConvertFrom-Json

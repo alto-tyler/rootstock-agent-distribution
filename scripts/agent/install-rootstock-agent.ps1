@@ -23,10 +23,10 @@ function Download-File {
 
     try {
         if ([string]::IsNullOrWhiteSpace($GitHubToken)) {
-            Invoke-WebRequest -Uri $Uri -OutFile $OutFile
+            Invoke-WebRequest -Uri $Uri -OutFile $OutFile -UseBasicParsing
         }
         else {
-            Invoke-WebRequest -Uri $Uri -OutFile $OutFile -Headers @{ Authorization = "token $GitHubToken"; "User-Agent" = "rootstock-agent-installer" }
+            Invoke-WebRequest -Uri $Uri -OutFile $OutFile -Headers @{ Authorization = "token $GitHubToken"; "User-Agent" = "rootstock-agent-installer" } -UseBasicParsing
         }
     }
     catch {
@@ -54,7 +54,7 @@ function Download-File {
             Authorization = "token $GitHubToken"
             Accept = "application/vnd.github.raw"
             "User-Agent" = "rootstock-agent-installer"
-        }
+        } -UseBasicParsing
     }
 }
 
