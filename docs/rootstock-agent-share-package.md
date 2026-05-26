@@ -43,7 +43,7 @@ For push-style team updates, use a dedicated distribution repository and user-le
 2. Ask developers to run:
 
 ```powershell
-./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/<org>/<repo>/<branch>"
+./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
 This installs into user prompts so the agent is available across all workspaces.

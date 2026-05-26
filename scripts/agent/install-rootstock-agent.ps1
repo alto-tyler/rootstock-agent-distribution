@@ -1,6 +1,6 @@
 param(
     [string]$SourceMode = "remote",   # remote | local
-    [string]$BaseUrl = "https://raw.githubusercontent.com/your-org/rootstock-agent-distribution/main",
+    [string]$BaseUrl = "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main",
     [string]$LocalPackagePath = "",
     [string]$PromptsRoot = "$env:APPDATA\Code\User\prompts"
 )

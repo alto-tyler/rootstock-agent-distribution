@@ -21,7 +21,7 @@ Use the installer script in this repo:
 ### Remote install (recommended)
 
 ```powershell
-./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/<org>/<repo>/<branch>"
+./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
 ### Local install (from extracted package)
