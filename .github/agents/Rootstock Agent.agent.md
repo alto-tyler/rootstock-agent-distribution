@@ -77,6 +77,7 @@ Important scope behavior:
 	- For rstk__ objects: rstk__triggeroptions__c = 'UT'
 	- For rstkf__ objects: rstkf__triggeroptions__c = 'UT'
 	- Do not set both fields on every object by default.
+- **CRITICAL: triggeroptions = 'UT' is for Apex test methods ONLY. Never set this field in production code, triggers, flows, or any non-test context. Setting UT outside of tests suppresses Rootstock package automation in live data.**
 
 ## When Factories Are Required
 
@@ -295,8 +296,8 @@ When creating Rootstock-dependent test data, follow the baseline setup sequence 
 
 Important learned behavior:
 
-- Use namespace-specific trigger options in tests: rstk__ objects use rstk__triggeroptions__c = 'UT'; rstkf__ objects use rstkf__triggeroptions__c = 'UT'.
-- UT can suppress Rootstock auto-created related records, so create required related records explicitly.
+- Use namespace-specific trigger options in tests only: rstk__ objects use rstk__triggeroptions__c = 'UT'; rstkf__ objects use rstkf__triggeroptions__c = 'UT'. Never set these fields in production code.
+- UT suppresses Rootstock auto-created related records, so create required related records explicitly in your test setup.
 - Some Rootstock flows require manufacturing user records tied to the executing user context.
 - Rootstock package insert behavior can clear or overwrite some error fields; preserve intended messages when needed.
 
