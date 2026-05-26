@@ -283,6 +283,70 @@ Use lightweight update checks so developers are informed when the shared agent d
 	- If remote version is newer than the local installed version, add a short notice with the update command.
 	- Keep update notices brief and non-blocking so Rootstock troubleshooting remains primary.
 
+## Agent Upgrade Instructions (Run on Behalf of User)
+
+When a user asks to upgrade the agent, or when an update is detected and the user confirms, run the appropriate command for their OS directly in the terminal.
+
+### Windows (PowerShell)
+
+From the `rootstock-agent-distribution` folder (or any folder containing the install script):
+
+```powershell
+./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+```
+
+For private distribution repos, set a token first:
+
+```powershell
+$env:GITHUB_TOKEN = "<token-with-repo-read>"
+./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+```
+
+### macOS / Linux (requires PowerShell Core)
+
+The install script is PowerShell (.ps1) and requires `pwsh` (PowerShell Core). If `pwsh` is not installed:
+
+```bash
+brew install --cask powershell
+```
+
+Then run the installer:
+
+```bash
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+```
+
+For private repos on Mac:
+
+```bash
+export GITHUB_TOKEN="<token-with-repo-read>"
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
+```
+
+### Check before upgrading (any OS)
+
+Windows:
+```powershell
+./scripts/agent/check-rootstock-agent-update.ps1
+```
+
+macOS / Linux:
+```bash
+pwsh ./scripts/agent/check-rootstock-agent-update.ps1
+```
+
+### What the installer does
+
+- Installs agent to: `%APPDATA%\Code\User\prompts\agents\Rootstock Agent.agent.md` (Windows) or `~/.config/Code/User/prompts/agents/Rootstock Agent.agent.md` (Mac/Linux)
+- Installs supporting docs (field help, certification suite, version manifest) into the same prompts folder
+- Agent becomes available across all VS Code workspaces after reload
+
+### After upgrade
+
+1. Reload VS Code (or open a new chat window)
+2. Select `Rootstock Agent` in the chat agent picker
+3. Verify by asking the agent its current version
+
 ## Rootstock Setup Knowledge (Required Baseline)
 
 When creating Rootstock-dependent test data, follow the baseline setup sequence proven in this repo and the Rootstock Test Data Factory:
