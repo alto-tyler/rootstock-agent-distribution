@@ -68,6 +68,7 @@ $agentDest = Join-Path $agentsDir "Rootstock Agent.agent.md"
 $fieldHelpDest = Join-Path $docsDir "rootstock-field-help-sample.md"
 $certSuiteDest = Join-Path $docsDir "rootstock-agent-certification-suite.md"
 $testLogDest = Join-Path $docsDir "rootstock-agent-test-log.md"
+$sydataTxnTypesDest = Join-Path $docsDir "rootstock-sydata-txn-types.csv"
 $versionManifestDest = Join-Path $docsDir "rootstock-agent-version.json"
 
 if ($SourceMode -eq "local") {
@@ -80,6 +81,7 @@ if ($SourceMode -eq "local") {
     $fieldHelpSrc = Join-Path $pkg "docs\rootstock-field-help-sample.md"
     $certSuiteSrc = Join-Path $pkg "docs\rootstock-agent-certification-suite.md"
     $testLogSrc = Join-Path $pkg "docs\rootstock-agent-test-log.md"
+    $sydataTxnTypesSrc = Join-Path $pkg "docs\rootstock-sydata-txn-types.csv"
     $versionManifestSrc = Join-Path $pkg "version.json"
 
     if (-not (Test-Path $agentSrc)) { throw "Missing agent source: $agentSrc" }
@@ -89,6 +91,7 @@ if ($SourceMode -eq "local") {
     Copy-Item $fieldHelpSrc $fieldHelpDest -Force
     if (Test-Path $certSuiteSrc) { Copy-Item $certSuiteSrc $certSuiteDest -Force }
     if (Test-Path $testLogSrc) { Copy-Item $testLogSrc $testLogDest -Force }
+    if (Test-Path $sydataTxnTypesSrc) { Copy-Item $sydataTxnTypesSrc $sydataTxnTypesDest -Force }
     if (Test-Path $versionManifestSrc) {
         Copy-Item $versionManifestSrc $versionManifestDest -Force
     }
@@ -98,6 +101,7 @@ elseif ($SourceMode -eq "remote") {
     $fieldHelpUrl = "$BaseUrl/docs/rootstock-field-help-sample.md"
     $certSuiteUrl = "$BaseUrl/docs/rootstock-agent-certification-suite.md"
     $testLogUrl = "$BaseUrl/docs/rootstock-agent-test-log.md"
+    $sydataTxnTypesUrl = "$BaseUrl/docs/rootstock-sydata-txn-types.csv"
     $versionManifestUrl = "$BaseUrl/version.json"
 
     Download-File -Uri $agentUrl -OutFile $agentDest
@@ -105,6 +109,7 @@ elseif ($SourceMode -eq "remote") {
 
     try { Download-File -Uri $certSuiteUrl -OutFile $certSuiteDest } catch {}
     try { Download-File -Uri $testLogUrl -OutFile $testLogDest } catch {}
+    try { Download-File -Uri $sydataTxnTypesUrl -OutFile $sydataTxnTypesDest } catch {}
     try { Download-File -Uri $versionManifestUrl -OutFile $versionManifestDest } catch {}
 }
 else {

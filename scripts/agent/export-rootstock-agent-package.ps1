@@ -17,6 +17,7 @@ $certSuiteSrc = Join-Path $projectPath "docs/rootstock-agent-certification-suite
 $testLogSrc = Join-Path $projectPath "docs/rootstock-agent-test-log.md"
 $readmeSrc = Join-Path $projectPath "docs/rootstock-agent-share-package.md"
 $versionSrc = Join-Path $projectPath "version.json"
+$sydataTxnTypesSrc = Join-Path $projectPath "docs/rootstock-sydata-txn-types.csv"
 $installScriptSrc = Join-Path $projectPath "scripts/agent/install-rootstock-agent.ps1"
 $exportScriptSrc = Join-Path $projectPath "scripts/agent/export-rootstock-agent-package.ps1"
 $checkUpdateScriptSrc = Join-Path $projectPath "scripts/agent/check-rootstock-agent-update.ps1"
@@ -35,6 +36,7 @@ Copy-Item $fieldHelpSrc (Join-Path $packageDir "docs/") -Force
 if (Test-Path $certSuiteSrc) { Copy-Item $certSuiteSrc (Join-Path $packageDir "docs/") -Force }
 if (Test-Path $testLogSrc) { Copy-Item $testLogSrc (Join-Path $packageDir "docs/") -Force }
 if (Test-Path $readmeSrc) { Copy-Item $readmeSrc (Join-Path $packageDir "docs/") -Force }
+if (Test-Path $sydataTxnTypesSrc) { Copy-Item $sydataTxnTypesSrc (Join-Path $packageDir "docs/") -Force }
 if (Test-Path $versionSrc) { Copy-Item $versionSrc (Join-Path $packageDir "version.json") -Force }
 if (Test-Path $installScriptSrc) { Copy-Item $installScriptSrc (Join-Path $packageDir "scripts/agent/") -Force }
 if (Test-Path $exportScriptSrc) { Copy-Item $exportScriptSrc (Join-Path $packageDir "scripts/agent/") -Force }

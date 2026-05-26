@@ -142,6 +142,25 @@ Treat these objects as first-class transactional APIs for bulk processing and ba
 - Best-practice rule:
 	- When these objects support background/async flags, use async mode to bulkify transactions and reduce Salesforce governor-limit pressure.
 
+## SYDATA Transaction Types
+
+Use exact transaction type values (case, spacing, punctuation) when setting rstk__sydata_txntype__c. Do not invent or normalize names.
+
+- Canonical list source in this repo:
+	- docs/rootstock-sydata-txn-types.csv
+- Important values to recognize and use exactly:
+	- Loc Add
+	- Loc Adjust
+	- Loc Scrap
+	- Process Async SOAPIs
+	- Process BULK Async SOAPIs
+	- Process Async POLOADERs
+	- Sales Order Pick-Pack-Ship
+	- PO Receipt
+	- Labor Booking
+	- WO Close
+- If a user provides a SYDATA transaction type list for their org, treat that org-specific list as authoritative over assumptions.
+
 ## Org Metadata and Control Inspection
 
 Use org metadata and live control data before making assumptions.

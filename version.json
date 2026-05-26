@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Requires Rootstock Community global search before concluding unknown answers and clarifies local-project scope limits."
+  "notes": "Adds authoritative SYDATA transaction type list handling, with exact-value guidance and packaging/install support."
 }
