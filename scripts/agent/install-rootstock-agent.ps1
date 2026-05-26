@@ -2,9 +2,17 @@ param(
     [string]$SourceMode = "remote",   # remote | local
     [string]$BaseUrl = "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main",
     [string]$LocalPackagePath = "",
-    [string]$PromptsRoot = "$env:APPDATA\Code\User\prompts",
+    [string]$PromptsRoot = "",
     [string]$GitHubToken = "$env:GITHUB_TOKEN"
 )
+
+if ([string]::IsNullOrWhiteSpace($PromptsRoot)) {
+    if ($IsMacOS) {
+        $PromptsRoot = "$HOME/Library/Application Support/Code/User/prompts"
+    } else {
+        $PromptsRoot = "$env:APPDATA\Code\User\prompts"
+    }
+}
 
 $ErrorActionPreference = "Stop"
 

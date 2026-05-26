@@ -310,17 +310,17 @@ The install script is PowerShell (.ps1) and requires `pwsh` (PowerShell Core). I
 brew install --cask powershell
 ```
 
-Then run the installer. macOS requires `-PromptsRoot` because `$env:APPDATA` is not set outside Windows:
+Then run the installer. The script auto-detects macOS and uses the correct path:
 
 ```bash
-pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main" -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
 For private repos on Mac:
 
 ```bash
 export GITHUB_TOKEN="<token-with-repo-read>"
-pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main" -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
+pwsh ./scripts/agent/install-rootstock-agent.ps1 -SourceMode remote -BaseUrl "https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main"
 ```
 
 ### Check before upgrading (any OS)
@@ -332,7 +332,7 @@ Windows:
 
 macOS / Linux:
 ```bash
-pwsh ./scripts/agent/check-rootstock-agent-update.ps1 -PromptsRoot "$HOME/Library/Application Support/Code/User/prompts"
+pwsh ./scripts/agent/check-rootstock-agent-update.ps1
 ```
 
 ### What the installer does
