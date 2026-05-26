@@ -68,8 +68,11 @@ $agentDest = Join-Path $agentsDir "Rootstock Agent.agent.md"
 $fieldHelpDest = Join-Path $docsDir "rootstock-field-help-sample.md"
 $certSuiteDest = Join-Path $docsDir "rootstock-agent-certification-suite.md"
 $testLogDest = Join-Path $docsDir "rootstock-agent-test-log.md"
-$sydataTxnTypesDest = Join-Path $docsDir "rootstock-sydata-txn-types.csv"
-$versionManifestDest = Join-Path $docsDir "rootstock-agent-version.json"
+$sydataTxnTypesDest    = Join-Path $docsDir "rootstock-sydata-txn-types.csv"
+$sydatatTxnIdDest      = Join-Path $docsDir "rootstock-sydatat-txn-id.csv"
+$soapiModesDest        = Join-Path $docsDir "rootstock-soapi-modes.csv"
+$ploaderModesDest      = Join-Path $docsDir "rootstock-poloader-modes.csv"
+$versionManifestDest   = Join-Path $docsDir "rootstock-agent-version.json"
 
 if ($SourceMode -eq "local") {
     if ([string]::IsNullOrWhiteSpace($LocalPackagePath)) {
@@ -81,7 +84,10 @@ if ($SourceMode -eq "local") {
     $fieldHelpSrc = Join-Path $pkg "docs\rootstock-field-help-sample.md"
     $certSuiteSrc = Join-Path $pkg "docs\rootstock-agent-certification-suite.md"
     $testLogSrc = Join-Path $pkg "docs\rootstock-agent-test-log.md"
-    $sydataTxnTypesSrc = Join-Path $pkg "docs\rootstock-sydata-txn-types.csv"
+    $sydataTxnTypesSrc  = Join-Path $pkg "docs\rootstock-sydata-txn-types.csv"
+    $sydatatTxnIdSrc    = Join-Path $pkg "docs\rootstock-sydatat-txn-id.csv"
+    $soapiModesSrc      = Join-Path $pkg "docs\rootstock-soapi-modes.csv"
+    $ploaderModesSrc    = Join-Path $pkg "docs\rootstock-poloader-modes.csv"
     $versionManifestSrc = Join-Path $pkg "version.json"
 
     if (-not (Test-Path $agentSrc)) { throw "Missing agent source: $agentSrc" }
@@ -89,9 +95,12 @@ if ($SourceMode -eq "local") {
 
     Copy-Item $agentSrc $agentDest -Force
     Copy-Item $fieldHelpSrc $fieldHelpDest -Force
-    if (Test-Path $certSuiteSrc) { Copy-Item $certSuiteSrc $certSuiteDest -Force }
-    if (Test-Path $testLogSrc) { Copy-Item $testLogSrc $testLogDest -Force }
-    if (Test-Path $sydataTxnTypesSrc) { Copy-Item $sydataTxnTypesSrc $sydataTxnTypesDest -Force }
+    if (Test-Path $certSuiteSrc)       { Copy-Item $certSuiteSrc      $certSuiteDest      -Force }
+    if (Test-Path $testLogSrc)         { Copy-Item $testLogSrc        $testLogDest        -Force }
+    if (Test-Path $sydataTxnTypesSrc)  { Copy-Item $sydataTxnTypesSrc $sydataTxnTypesDest -Force }
+    if (Test-Path $sydatatTxnIdSrc)    { Copy-Item $sydatatTxnIdSrc   $sydatatTxnIdDest   -Force }
+    if (Test-Path $soapiModesSrc)      { Copy-Item $soapiModesSrc     $soapiModesDest     -Force }
+    if (Test-Path $ploaderModesSrc)    { Copy-Item $ploaderModesSrc   $ploaderModesDest   -Force }
     if (Test-Path $versionManifestSrc) {
         Copy-Item $versionManifestSrc $versionManifestDest -Force
     }
@@ -101,15 +110,21 @@ elseif ($SourceMode -eq "remote") {
     $fieldHelpUrl = "$BaseUrl/docs/rootstock-field-help-sample.md"
     $certSuiteUrl = "$BaseUrl/docs/rootstock-agent-certification-suite.md"
     $testLogUrl = "$BaseUrl/docs/rootstock-agent-test-log.md"
-    $sydataTxnTypesUrl = "$BaseUrl/docs/rootstock-sydata-txn-types.csv"
+    $sydataTxnTypesUrl  = "$BaseUrl/docs/rootstock-sydata-txn-types.csv"
+    $sydatatTxnIdUrl    = "$BaseUrl/docs/rootstock-sydatat-txn-id.csv"
+    $soapiModesUrl      = "$BaseUrl/docs/rootstock-soapi-modes.csv"
+    $ploaderModesUrl    = "$BaseUrl/docs/rootstock-poloader-modes.csv"
     $versionManifestUrl = "$BaseUrl/version.json"
 
     Download-File -Uri $agentUrl -OutFile $agentDest
     Download-File -Uri $fieldHelpUrl -OutFile $fieldHelpDest
 
-    try { Download-File -Uri $certSuiteUrl -OutFile $certSuiteDest } catch {}
-    try { Download-File -Uri $testLogUrl -OutFile $testLogDest } catch {}
-    try { Download-File -Uri $sydataTxnTypesUrl -OutFile $sydataTxnTypesDest } catch {}
+    try { Download-File -Uri $certSuiteUrl       -OutFile $certSuiteDest       } catch {}
+    try { Download-File -Uri $testLogUrl         -OutFile $testLogDest         } catch {}
+    try { Download-File -Uri $sydataTxnTypesUrl  -OutFile $sydataTxnTypesDest  } catch {}
+    try { Download-File -Uri $sydatatTxnIdUrl    -OutFile $sydatatTxnIdDest    } catch {}
+    try { Download-File -Uri $soapiModesUrl      -OutFile $soapiModesDest      } catch {}
+    try { Download-File -Uri $ploaderModesUrl    -OutFile $ploaderModesDest    } catch {}
     try { Download-File -Uri $versionManifestUrl -OutFile $versionManifestDest } catch {}
 }
 else {
