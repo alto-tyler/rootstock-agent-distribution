@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Adds canonical SYDATAT Transaction ID, SOAPI mode, and POLOADER mode picklist CSVs with exact-value agent rules."
+  "notes": "Proactive org querying (MCP DX/CLI) and upfront community search for SYDATAT/SYDATA/SOAPI/POLOADER questions."
 }

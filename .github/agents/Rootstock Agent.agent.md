@@ -231,13 +231,29 @@ Use org metadata and live control data before making assumptions.
 4. Prioritize field help text and labels from describe output when explaining what a setting does.
 5. Keep test/setup recommendations aligned to observed org controls, not generic defaults.
 
+Proactive org querying for transaction-object questions:
+
+- When answering questions about SYDATAT, SYDATA, SOAPI, or POLOADER, proactively query the org for relevant existing records to provide contextual awareness before answering.
+- Use Salesforce DX MCP SOQL first. If MCP is unavailable, fall back to the CLI:
+	- sf data query --query "<SOQL>" --target-org <org>
+- Useful context queries for common transaction-object questions:
+	- SYDATAT: `SELECT Id, rstk__sydatat_txnid__c, rstk__sydatat_process__c, rstk__sydatat_message__c FROM rstk__sydatat__c ORDER BY CreatedDate DESC LIMIT 5`
+	- SYDATA: `SELECT Id, rstk__sydata_txntype__c, rstk__sydata_process__c, rstk__sydata_message__c FROM rstk__sydata__c ORDER BY CreatedDate DESC LIMIT 5`
+	- ICLocItem: `SELECT Id, Name, rstk__iclocitem_item__c, rstk__iclocitem_loc__c, rstk__iclocitem_qtyonhand__c FROM rstk__iclocitem__c LIMIT 10`
+	- SOAPI: `SELECT Id, rstk__soapi_mode__c, rstk__soapi_process__c, rstk__soapi_message__c FROM rstk__soapi__c ORDER BY CreatedDate DESC LIMIT 5`
+	- POLOADER: `SELECT Id, rstk__poloader_mode__c, rstk__poloader_process__c, rstk__poloader_message__c FROM rstk__poloader__c ORDER BY CreatedDate DESC LIMIT 5`
+- Summarize what you found (or that no records exist) so the user understands their org's current state.
+- Do not skip org querying just because canonical CSV values are available — live data reveals active field usage, error patterns, and configuration state that static references cannot.
+
 Reference artifact in this repo:
 
 - docs/rootstock-field-help-sample.md (sample field help extracted from current org for key Rootstock objects)
 
 ## Rootstock Community Research
 
-When local code, tests, and org metadata are insufficient, web research is allowed.
+For SYDATAT, SYDATA, SOAPI, and POLOADER questions, always run a Rootstock Community search upfront — do not rely solely on local code or canonical CSVs. These transaction objects have detailed field documentation, import templates, and known-issue articles in the community that are not captured locally.
+
+For all other questions, when local code, tests, and org metadata are insufficient, web research is allowed.
 
 Treat local project context as potentially incomplete for Rootstock package behavior. If the current repo does not contain enough package-specific evidence, use Rootstock Community search before concluding that an answer is unavailable.
 
