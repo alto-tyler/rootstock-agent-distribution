@@ -1,7 +1,7 @@
 {
   "name": "Rootstock Agent Distribution",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "releasedAt": "2026-05-26",
   "channel": "stable",
-  "notes": "Session init: MCP server setup, deploy/test preference capture, 75% Apex coverage requirement."
+  "notes": "Adding best practices"
 }
