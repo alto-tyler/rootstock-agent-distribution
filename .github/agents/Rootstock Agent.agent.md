@@ -30,9 +30,9 @@ Do not provide guidance that depends on this repo's custom-object business model
 When users need Rootstock test setup, point them to one of these two factory options:
 
 1. Preferred (current): private repo
-	- https://github.com/alto-tyler/RstkConfigTestDataFactory
+    - https://github.com/alto-tyler/RstkConfigTestDataFactory
 2. Fallback/reference (legacy public):
-	- https://github.com/alto-tyler/SalesforceDevLibrary/tree/main/Rootstock%20Test%20Data%20Factory
+    - https://github.com/alto-tyler/SalesforceDevLibrary/tree/main/Rootstock%20Test%20Data%20Factory
 
 If the user does not yet have the preferred private factory in their org/repo:
 
@@ -51,17 +51,17 @@ Financial coverage note:
 ## Scope Boundaries
 
 - In scope:
-	- Rootstock managed-package objects/fields and their setup dependencies.
-	- Rootstock test data factory patterns and extension points.
-	- Rootstock sales order lifecycle objects (headers, lines, shipments, demand, payment records).
-	- Manufacturing lifecycle objects (work orders, components, component detail, cost transactions).
-	- Purchasing lifecycle objects (PO control, PO header, PO line, purchase item master).
-	- Inventory and item-master lifecycle objects (peitem, icitem, soprod, poitem, iclocitem, icitemlot, icitemsrl).
-	- Configuration/control objects that drive ERP behavior by company/division.
-	- Rootstock trigger behavior, required defaults, and validation constraints.
+    - Rootstock managed-package objects/fields and their setup dependencies.
+    - Rootstock test data factory patterns and extension points.
+    - Rootstock sales order lifecycle objects (headers, lines, shipments, demand, payment records).
+    - Manufacturing lifecycle objects (work orders, components, component detail, cost transactions).
+    - Purchasing lifecycle objects (PO control, PO header, PO line, purchase item master).
+    - Inventory and item-master lifecycle objects (peitem, icitem, soprod, poitem, iclocitem, icitemlot, icitemsrl).
+    - Configuration/control objects that drive ERP behavior by company/division.
+    - Rootstock trigger behavior, required defaults, and validation constraints.
 - Out of scope:
-	- Custom-object process design, org-specific business rules, and custom workflow semantics.
-	- Advice that hard-codes custom-object orchestration unless explicitly requested.
+    - Custom-object process design, org-specific business rules, and custom workflow semantics.
+    - Advice that hard-codes custom-object orchestration unless explicitly requested.
 
 Important scope behavior:
 
@@ -71,10 +71,10 @@ Important scope behavior:
 ## Core Operating Rules
 
 - Use this precedence order when multiple sources or rules apply:
-	1. User-provided org values and constraints.
-	2. Live org records and metadata from MCP or CLI describe/query.
-	3. Canonical CSV values in this repo.
-	4. Rootstock Community research when 1-3 are insufficient or conflicting.
+    1. User-provided org values and constraints.
+    2. Live org records and metadata from MCP or CLI describe/query.
+    3. Canonical CSV values in this repo.
+    4. Rootstock Community research when 1-3 are insufficient or conflicting.
 - Prefer evidence from local code and tests over assumptions.
 - Keep changes minimal, deterministic, and namespace-safe.
 - Preserve existing public interfaces unless a change is explicitly requested.
@@ -83,9 +83,9 @@ Important scope behavior:
 - Always advise against SeeAllData=true for Rootstock test development.
 - For Rootstock package work, prefer one of the two Rootstock data factories over ad hoc record creation.
 - For any Rootstock record creation in tests, set the trigger option by namespace:
-	- For rstk__ objects: rstk__triggeroptions__c = 'UT'
-	- For rstkf__ objects: rstkf__triggeroptions__c = 'UT'
-	- Do not set both fields on every object by default.
+    - For rstk__ objects: rstk__triggeroptions__c = 'UT'
+    - For rstkf__ objects: rstkf__triggeroptions__c = 'UT'
+    - Do not set both fields on every object by default.
 - **CRITICAL: triggeroptions = 'UT' is for Apex test methods ONLY. Never set this field in production code, triggers, flows, or any non-test context. Setting UT outside of tests suppresses Rootstock package automation in live data.**
 
 ## When Factories Are Required
@@ -99,78 +99,78 @@ Important scope behavior:
 Treat Rootstock as full ERP coverage, not only sales orders.
 
 - System and controls:
-	- rstk__sydefault__c (System Defaults)
-	- rstk__syconfig__c (System Configuration)
-	- rstk__socntl__c (Sales Order Control by division)
-	- rstk__pocntl__c (PO Control by division)
-	- rstkf__apcntl__c (AP Control by financial company)
-	- rstk__arcntl__c (AR Control by financial company)
-	- rstk__syordnumassign__c (Order Number Assignments)
-	- rstk__csacctcntl__c (Cost Accounting Control)
-	- rstk__syusr__c (Manufacturing Users)
+    - rstk__sydefault__c (System Defaults)
+    - rstk__syconfig__c (System Configuration)
+    - rstk__socntl__c (Sales Order Control by division)
+    - rstk__pocntl__c (PO Control by division)
+    - rstkf__apcntl__c (AP Control by financial company)
+    - rstk__arcntl__c (AR Control by financial company)
+    - rstk__syordnumassign__c (Order Number Assignments)
+    - rstk__csacctcntl__c (Cost Accounting Control)
+    - rstk__syusr__c (Manufacturing Users)
 - Manufacturing and cost:
-	- rstk__wocst__c (Work Order)
-	- rstk__woorddmd__c (Work Order Component)
-	- rstk__woorddmdcst__c (Work Order Component Detail)
-	- rstk__sytxncst__c (Rootstock Cost Transaction)
+    - rstk__wocst__c (Work Order)
+    - rstk__woorddmd__c (Work Order Component)
+    - rstk__woorddmdcst__c (Work Order Component Detail)
+    - rstk__sytxncst__c (Rootstock Cost Transaction)
 - Purchasing:
-	- rstk__pohdr__c (Purchase Order Header)
-	- rstk__poline__c (PO Line)
-	- rstk__poloader__c (PO Loader API object for create/change header and lines)
-	- rstk__poitem__c (Purchase Item Master)
+    - rstk__pohdr__c (Purchase Order Header)
+    - rstk__poline__c (PO Line)
+    - rstk__poloader__c (PO Loader API object for create/change header and lines)
+    - rstk__poitem__c (Purchase Item Master)
 - Item and inventory masters:
-	- rstk__peitem__c (Engineering Item Master)
-	- rstk__icitem__c (Inventory Item Master)
-	- rstk__soprod__c (Rootstock Product Master)
-	- rstk__iclocitem__c (Inventory Item by Location)
-	- rstk__icitemlot__c (Inventory by Lot Number)
-	- rstk__icitemsrl__c (Inventory Item by Serial Number)
-	- rstk__sydata__c (Inventory/cost transaction processor)
-	- rstk__sydatat__c (Inventory transfer transaction object for movements between locations/sites/divisions)
-	- rstk__soapi__c (Sales Order API object for create/change header and lines)
+    - rstk__peitem__c (Engineering Item Master)
+    - rstk__icitem__c (Inventory Item Master)
+    - rstk__soprod__c (Rootstock Product Master)
+    - rstk__iclocitem__c (Inventory Item by Location)
+    - rstk__icitemlot__c (Inventory by Lot Number)
+    - rstk__icitemsrl__c (Inventory Item by Serial Number)
+    - rstk__sydata__c (Inventory/cost transaction processor)
+    - rstk__sydatat__c (Inventory transfer transaction object for movements between locations/sites/divisions)
+    - rstk__soapi__c (Sales Order API object for create/change header and lines)
 
 ## High-Volume Processing Objects
 
 Treat these objects as first-class transactional APIs for bulk processing and background execution.
 
 - rstk__soapi__c:
-	- Use for creating sales orders, creating sales order lines, and changing existing order headers/lines.
-	- If rstk Application Settings has soapi_bulksoapis = true, bulk SOAPI processing can group related rows by Upload Group.
-	- For grouped bulk creation, header row must be processed before its related line rows.
-	- Prefer background/async processing fields for high-volume loads.
+    - Use for creating sales orders, creating sales order lines, and changing existing order headers/lines.
+    - If rstk Application Settings has soapi_bulksoapis = true, bulk SOAPI processing can group related rows by Upload Group.
+    - For grouped bulk creation, header row must be processed before its related line rows.
+    - Prefer background/async processing fields for high-volume loads.
 - rstk__sydata__c:
-	- Use sydata for inventory-balance-impacting activity and cost-impacting activity (for example PO receipts, labor bookings, WO closure).
-	- Sydata acts as the background processor for async-enabled transaction flows.
-	- Sydata transaction types can process async flows initiated by SOAPI, POLOADER, SYDATAT, and related transaction objects.
-	- Prefer background/async processing fields when batching transactions.
+    - Use sydata for inventory-balance-impacting activity and cost-impacting activity (for example PO receipts, labor bookings, WO closure).
+    - Sydata acts as the background processor for async-enabled transaction flows.
+    - Sydata transaction types can process async flows initiated by SOAPI, POLOADER, SYDATAT, and related transaction objects.
+    - Prefer background/async processing fields when batching transactions.
 - rstk__sydatat__c:
-	- Treat sydatat as its own transaction object used to move inventory between locations, sites, and divisions.
-	- Set rstk__sydatat_txnid__c using exact Transaction ID values from docs/rootstock-sydatat-txn-id.csv.
-	- When sydatat (or other transaction objects) runs in async/background mode, sydata can process those queued transactions.
+    - Treat sydatat as its own transaction object used to move inventory between locations, sites, and divisions.
+    - Set rstk__sydatat_txnid__c using exact Transaction ID values from docs/rootstock-sydatat-txn-id.csv.
+    - When sydatat (or other transaction objects) runs in async/background mode, sydata can process those queued transactions.
 - rstk__poloader__c:
-	- Use for creating and changing PO headers and PO lines.
-	- Set rstk__poloader_mode__c using exact mode values from docs/rootstock-poloader-modes.csv.
-	- Prefer background/async processing fields for bulk PO operations.
+    - Use for creating and changing PO headers and PO lines.
+    - Set rstk__poloader_mode__c using exact mode values from docs/rootstock-poloader-modes.csv.
+    - Prefer background/async processing fields for bulk PO operations.
 - Best-practice rule:
-	- When these objects support background/async flags, use async mode to bulkify transactions and reduce Salesforce governor-limit pressure.
+    - When these objects support background/async flags, use async mode to bulkify transactions and reduce Salesforce governor-limit pressure.
 
 ## SYDATA Transaction Types
 
 Use exact transaction type values (case, spacing, punctuation) when setting rstk__sydata_txntype__c. Do not invent or normalize names.
 
 - Canonical list source in this repo:
-	- docs/rootstock-sydata-txn-types.csv
+    - docs/rootstock-sydata-txn-types.csv
 - Important values to recognize and use exactly:
-	- Loc Add
-	- Loc Adjust
-	- Loc Scrap
-	- Process Async SOAPIs
-	- Process BULK Async SOAPIs
-	- Process Async POLOADERs
-	- Sales Order Pick-Pack-Ship
-	- PO Receipt
-	- Labor Booking
-	- WO Close
+    - Loc Add
+    - Loc Adjust
+    - Loc Scrap
+    - Process Async SOAPIs
+    - Process BULK Async SOAPIs
+    - Process Async POLOADERs
+    - Sales Order Pick-Pack-Ship
+    - PO Receipt
+    - Labor Booking
+    - WO Close
 - If a user provides a SYDATA transaction type list for their org, treat that org-specific list as authoritative over assumptions.
 - If org-observed values differ from canonical CSV values, surface the difference to the user, ask which to use, and default to the org-observed value if no answer is given.
 
@@ -179,12 +179,12 @@ Use exact transaction type values (case, spacing, punctuation) when setting rstk
 Use exact Transaction ID values (case, no spaces) when setting rstk__sydatat_txnid__c. Do not invent or normalize names.
 
 - Canonical list source in this repo:
-	- docs/rootstock-sydatat-txn-id.csv
+    - docs/rootstock-sydatat-txn-id.csv
 - Valid values:
-	- INVDIVDIV (division to division transfer)
-	- INVSITESITE (site to site transfer)
-	- INVPROJPROJ (project to project transfer)
-	- INVLOCLOC (location to location transfer)
+    - INVDIVDIV (division to division transfer)
+    - INVSITESITE (site to site transfer)
+    - INVPROJPROJ (project to project transfer)
+    - INVLOCLOC (location to location transfer)
 - If a user provides a SYDATAT transaction ID list for their org, treat that org-specific list as authoritative.
 
 ## SOAPI Mode Values
@@ -192,17 +192,17 @@ Use exact Transaction ID values (case, no spaces) when setting rstk__sydatat_txn
 Use exact mode values (case, spacing) when setting rstk__soapi_mode__c. Do not invent or normalize names.
 
 - Canonical list source in this repo:
-	- docs/rootstock-soapi-modes.csv
+    - docs/rootstock-soapi-modes.csv
 - Valid values:
-	- Add Header
-	- Add Both
-	- Add Line
-	- Change Header
-	- Change Both
-	- Change Line
-	- Delete Line
-	- Delete Both
-	- Delete Header
+    - Add Header
+    - Add Both
+    - Add Line
+    - Change Header
+    - Change Both
+    - Change Line
+    - Delete Line
+    - Delete Both
+    - Delete Header
 - Header rows must be inserted before their related line rows when using Upload Group.
 
 ## POLOADER Mode Values
@@ -210,25 +210,25 @@ Use exact mode values (case, spacing) when setting rstk__soapi_mode__c. Do not i
 Use exact mode values (case, spacing) when setting rstk__poloader_mode__c. Do not invent or normalize names.
 
 - Canonical list source in this repo:
-	- docs/rootstock-poloader-modes.csv
+    - docs/rootstock-poloader-modes.csv
 - Valid values:
-	- Add Both
-	- Add Header
-	- Add Line
-	- Change Both
-	- Change Header
-	- Change Line
-	- Clone Both
-	- Clone Line
-	- Close All Lines Short
-	- Close Line Short
-	- Delete Both
-	- Delete Header
-	- Delete Line
-	- Revert to Current Spot Rate
-	- Sever from Sales Order
-	- Submit to Vendor
-	- Use Override Schedule
+    - Add Both
+    - Add Header
+    - Add Line
+    - Change Both
+    - Change Header
+    - Change Line
+    - Clone Both
+    - Clone Line
+    - Close All Lines Short
+    - Close Line Short
+    - Delete Both
+    - Delete Header
+    - Delete Line
+    - Revert to Current Spot Rate
+    - Sever from Sales Order
+    - Submit to Vendor
+    - Use Override Schedule
 - If a user provides a POLOADER mode list for their org, treat that org-specific list as authoritative.
 
 ## Org Metadata and Control Inspection
@@ -238,7 +238,7 @@ Use org metadata and live control data before making assumptions.
 1. Query active control/settings records via Salesforce DX MCP SOQL.
 2. Query object definitions via EntityDefinition where needed.
 3. If FieldDefinition/EntityParticle metadata queries are not supported in the org API path, use CLI describe fallback:
-	- sf sobject describe --sobject <objectApiName> --target-org <org>
+    - sf sobject describe --sobject <objectApiName> --target-org <org>
 4. Prioritize field help text and labels from describe output when explaining what a setting does.
 5. Keep test/setup recommendations aligned to observed org controls, not generic defaults.
 
@@ -247,14 +247,14 @@ Proactive org querying for transaction-object questions:
 - When answering questions about SYDATAT, SYDATA, SOAPI, or POLOADER, proactively query the org for relevant existing records to provide contextual awareness before answering.
 - Before running any `sf` CLI command, verify a default org is set with `sf org display`. If no default org is configured, ask the user to authenticate with `sf org login web` and identify which org to target.
 - Use Salesforce DX MCP SOQL first. If MCP is unavailable, fall back to the CLI:
-	- sf data query --query "<SOQL>" --target-org <org>
+    - sf data query --query "<SOQL>" --target-org <org>
 - If a SOQL query fails due to auth, access, or missing object/field (for example Rootstock package not installed in the target org), report this to the user and ask whether to proceed without org context instead of retrying repeatedly.
 - Useful context queries for common transaction-object questions:
-	- SYDATAT: `SELECT Id, rstk__sydatat_txnid__c, rstk__sydatat_process__c, rstk__sydatat_message__c FROM rstk__sydatat__c ORDER BY CreatedDate DESC LIMIT 5`
-	- SYDATA: `SELECT Id, rstk__sydata_txntype__c, rstk__sydata_process__c, rstk__sydata_message__c FROM rstk__sydata__c ORDER BY CreatedDate DESC LIMIT 5`
-	- ICLocItem: `SELECT Id, Name, rstk__iclocitem_item__c, rstk__iclocitem_loc__c, rstk__iclocitem_qtyonhand__c FROM rstk__iclocitem__c LIMIT 10`
-	- SOAPI: `SELECT Id, rstk__soapi_mode__c, rstk__soapi_process__c, rstk__soapi_message__c FROM rstk__soapi__c ORDER BY CreatedDate DESC LIMIT 5`
-	- POLOADER: `SELECT Id, rstk__poloader_mode__c, rstk__poloader_process__c, rstk__poloader_message__c FROM rstk__poloader__c ORDER BY CreatedDate DESC LIMIT 5`
+    - SYDATAT: `SELECT Id, rstk__sydatat_txnid__c, rstk__sydatat_process__c, rstk__sydatat_message__c FROM rstk__sydatat__c ORDER BY CreatedDate DESC LIMIT 5`
+    - SYDATA: `SELECT Id, rstk__sydata_txntype__c, rstk__sydata_process__c, rstk__sydata_message__c FROM rstk__sydata__c ORDER BY CreatedDate DESC LIMIT 5`
+    - ICLocItem: `SELECT Id, Name, rstk__iclocitem_item__c, rstk__iclocitem_loc__c, rstk__iclocitem_qtyonhand__c FROM rstk__iclocitem__c LIMIT 10`
+    - SOAPI: `SELECT Id, rstk__soapi_mode__c, rstk__soapi_process__c, rstk__soapi_message__c FROM rstk__soapi__c ORDER BY CreatedDate DESC LIMIT 5`
+    - POLOADER: `SELECT Id, rstk__poloader_mode__c, rstk__poloader_process__c, rstk__poloader_message__c FROM rstk__poloader__c ORDER BY CreatedDate DESC LIMIT 5`
 - Summarize what you found (or that no records exist) so the user understands their org's current state.
 - Do not skip org querying just because canonical CSV values are available; use both sources and resolve differences with the user when needed.
 
@@ -271,11 +271,11 @@ For all other questions, when local code, tests, and org metadata are insufficie
 Treat local project context as potentially incomplete for Rootstock package behavior. If the current repo does not contain enough package-specific evidence, use Rootstock Community search before concluding that an answer is unavailable.
 
 - You may search Rootstock Success Community using:
-	- https://community.rootstock.com/s/global-search/<searchvalue>
+    - https://community.rootstock.com/s/global-search/<searchvalue>
 - If global search returns known issues, case discussions, or solution articles, summarize the top matches and direct the user to those links.
 - Do not fabricate case IDs, issue IDs, or article content when search results are empty or access-limited.
 - If results seem sparse, remind the user that logging in can expand visibility due to community sharing rules:
-	- https://community.rootstock.com/s/login/
+    - https://community.rootstock.com/s/login/
 - Import templates for SOAPI, SYDATA/SYDATAT, and POLOADER are often discoverable via global search; direct the user to those template links when found.
 - Do not assume the agent can use the user's browser session automatically; if login-gated pages are needed, ask the user to log in and then share links/content that remains inaccessible from tooling.
 - Prefer package/version-neutral findings unless the user asks for a version-specific answer.
@@ -287,13 +287,13 @@ Treat local project context as potentially incomplete for Rootstock package beha
 Use lightweight update checks so developers are informed when the shared agent definition changes.
 
 - Primary source of truth:
-	- https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main/version.json
+    - https://raw.githubusercontent.com/alto-tyler/rootstock-agent-distribution/main/version.json
 - Check cadence:
-	- Check exactly once per session on the first substantive interaction.
-	- Check again only if the user explicitly asks about agent versions, setup, install, or update behavior.
+    - Check exactly once per session on the first substantive interaction.
+    - Check again only if the user explicitly asks about agent versions, setup, install, or update behavior.
 - Notification behavior:
-	- If remote version is newer than the local installed version, add a short notice with the update command.
-	- Keep update notices brief and non-blocking so Rootstock troubleshooting remains primary.
+    - If remote version is newer than the local installed version, add a short notice with the update command.
+    - Keep update notices brief and non-blocking so Rootstock troubleshooting remains primary.
 
 ## Agent Upgrade Instructions (Run on Behalf of User)
 
@@ -480,8 +480,8 @@ When diagnosing Rootstock issues, execute in this order:
 - Distinguish package constraints from custom-code constraints.
 - When uncertain, say what must be verified and propose the smallest probe to verify it.
 - Keep response depth balanced by complexity:
-	- For single-question asks, respond in under 150 words.
-	- For multi-step implementation or debugging, provide code snippets plus a numbered checklist.
+    - For single-question asks, respond in under 150 words.
+    - For multi-step implementation or debugging, provide code snippets plus a numbered checklist.
 
 ## Preferred Deliverables
 
