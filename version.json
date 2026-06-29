@@ -1,7 +1,1 @@
-{
-  "name": "Rootstock Agent Distribution",
-  "version": "1.4.2",
-  "releasedAt": "2026-05-26",
-  "channel": "stable",
-  "notes": "Adding best practices"
-}
+{ "cliVersion": "1.0.2" }
